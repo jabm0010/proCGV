@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <stdio.h>
+#include <tgmath.h>
 
 #include "cgvScene3D.h"
 
@@ -8,13 +9,18 @@
 GLfloat colour1[] = { 0,0.7,0 };
 GLfloat blue[] = { 0,0,1 };
 GLfloat red[] = { 1,0,0 };
-
+GLfloat white[] = { 1, 1, 1 };
 
 
 cgvScene3D::cgvScene3D () {
 	axes = true;
 // Section B: initialize the attributes to control the degrees of freedom of the model
 
+	ballDirX = 1;
+	ballDirY = 0.0;
+
+	ballY = 0;
+	ballX = 0;
 
 	player1 = 0;
 	player2 = 0;
@@ -71,7 +77,13 @@ void cgvScene3D::drawPlayer2() {
 	glPopMatrix();
 }
 
-
+void cgvScene3D::drawBall() {
+	glPushMatrix();
+		glMaterialfv(GL_FRONT, GL_EMISSION, white);
+		glTranslatef(ballX, 0, ballY);
+		glutSolidCube(0.25);
+	glPopMatrix();
+}
 
 
 void cgvScene3D::render(void) {
@@ -92,14 +104,6 @@ void cgvScene3D::render(void) {
 	  float mesh_color[4] = {1.0, 0.0, 0.0, 1.0}; 
 	  glMaterialfv(GL_FRONT,GL_EMISSION,mesh_color);
 
-///// Section B: include here the visualization of the tree of the model by using the OpenGL stack of matrices 
-/////             it is advisable to create an auxiliary method to encapsulate the code to visualize the model
-/////             leaving here only the call to this method. In Section D add the names to the mobile parts of the object by 
-/////		          the stack of names and control the selected object to colour it yellow
-
-
-
-
 	  //Borde superior
 	  glPushMatrix();
 	    glMaterialfv(GL_FRONT, GL_EMISSION, colour1);
@@ -118,29 +122,81 @@ void cgvScene3D::render(void) {
 
 	  drawPlayer1();
 	  drawPlayer2();
-	
+	  drawBall();
+
 	glPopMatrix (); // restore the modelview matrix 
   
 }
 
 
 void cgvScene3D::movePlayer1(float value) {
-
 	player1 += value;
-
-
-
 }
 
 
-void cgvScene3D::movePlayer2(float value) {
-	
+void cgvScene3D::movePlayer2(float value) {	
 	player2 += value;
 
-
-
-
-
 }
 
+void cgvScene3D::ballMovement() {
+	ballX += ballDirX * 0.04;
+	ballY += ballDirY * 0.04;
+
+	float racket_width = 0.25;
+	float racket_height = 1.75;
+
+	// hit by left racket?
+	if (ballX < -4.5 + racket_width &&
+		ballX > -4.5 &&
+		ballY < player2 + racket_height &&
+		ballY > player2 - racket_height) {
+		// set fly direction depending on where it hit the racket
+		// (t is 0.5 if hit at top, 0 at center, -0.5 at bottom)
+		float t = ((ballY - player2) / (racket_height*2)) - 0.02;
+		ballDirX = fabs(ballDirX); // force it to be positive
+		ballDirY = t;
+	}
+
+	// hit by right racket?
+	if (ballX < 4.5 &&
+		ballX > 4.5 - racket_width &&
+		ballY < player1 + racket_height &&
+		ballY > player1 - racket_height) {
+		// set fly direction depending on where it hit the racket
+		// (t is 0.5 if hit at top, 0 at center, -0.5 at bottom)
+		float t = ((ballY - player1) / (racket_height*2)) - 0.02;
+		ballDirX = -fabs(ballDirX); // force it to be negative
+		ballDirY = t;
+	}
+
+	// hit left wall?
+	if (ballX < -5) {
+//		++score_right;
+		ballX = 0;
+		ballY = 0;
+		ballDirX = fabs(ballDirX); // force it to be positive
+		ballDirY = 0;
+	}
+
+	 // hit right wall?
+	if (ballX > 5) {
+//		++score_left;
+		ballX = 0;
+		ballY = 0;
+		ballDirX = -fabs(ballDirX); // force it to be negative
+		ballDirY = 0;
+	}
+
+	// hit top wall?
+	if (ballY > 4.7) {
+		ballDirY = -0.5; // force it to be negative
+	}
+
+	// hit bottom wall?
+	if (ballY < -4.7) {
+		ballDirY = 0.5; // force it to be positive
+	}
+
+}
 

@@ -47,15 +47,7 @@ class cgvInterface {
 		                                               // it is automatically called when the window is resized
 		static void set_glutDisplayFunc(); // method to render the scene
 
-	///// Section D: methods to control click and drag with the mouse
-		static void  set_glutMouseFunc(GLint button,GLint state,GLint x,GLint y); // control mouse clicking
-		static void  set_glutMotionFunc(GLint x,GLint y); // control the mouse movement while a button is pressed
-
-		
-		// Methods
-		///// Section D: methods with OpenGL functions for selecting objects by list of impacts
-		void init_selection(int SIZE_IMPACT_LIST, GLuint *impact_list);
-		void finish_selection(int SIZE_IMPACT_LIST, GLuint *impact_list);
+		static void  set_idleFunc();
 
 		
 		// create the world that is render in the window
@@ -69,6 +61,10 @@ class cgvInterface {
 		void init_callbacks(); // initialize all the callbacks
 
 		void init_rendering_loop(); // render the scene and wait for an event in the interface
+
+		static void visible(int vis);
+		static void idle();
+		void init_idleFunc();
 
 		// methods get_ and set_ to access the attributes
 		int get_width_window(){return width_window;};
