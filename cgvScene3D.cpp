@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <stdio.h>
+#include <tgmath.h>
 
 #include "cgvScene3D.h"
 
@@ -15,7 +16,7 @@ cgvScene3D::cgvScene3D () {
 	axes = true;
 // Section B: initialize the attributes to control the degrees of freedom of the model
 
-	ballDirX = -0.5;
+	ballDirX = 1;
 	ballDirY = 0.0;
 
 	ballY = 0;
@@ -139,65 +140,62 @@ void cgvScene3D::movePlayer2(float value) {
 }
 
 void cgvScene3D::ballMovement() {
-	ballX += ballDirX * 0.001;
-	ballY += ballDirY * 0.001;
+	ballX += ballDirX * 0.04;
+	ballY += ballDirY * 0.04;
 
 	float racket_width = 0.25;
-	float racket_height = 2;
+	float racket_height = 1.75;
 
 	// hit by left racket?
-	//if (ballX < -2 + racket_width &&
-	//	ballX > -2 &&
-	//	ballY < player2 + racket_height &&
-	//	ballY > player2) 
-	if ( ballX < -4.5 ) {
+	if (ballX < -4.5 + racket_width &&
+		ballX > -4.5 &&
+		ballY < player2 + racket_height &&
+		ballY > player2 - racket_height) {
 		// set fly direction depending on where it hit the racket
 		// (t is 0.5 if hit at top, 0 at center, -0.5 at bottom)
-		float t = ((ballY - player2) / racket_height) - 0.5f;
-		ballDirX = 0.5;//fabs(ballDirX); // force it to be positive
+		float t = ((ballY - player2) / (racket_height*2)) - 0.02;
+		ballDirX = fabs(ballDirX); // force it to be positive
 		ballDirY = t;
 	}
 
 	// hit by right racket?
-/*	if (ballX > 2 &&
-		ballX < 2 + racket_width &&
+	if (ballX < 4.5 &&
+		ballX > 4.5 - racket_width &&
 		ballY < player1 + racket_height &&
-		ballY > player1)*/ 
-
-	if (ballX < 4.5 ) {
+		ballY > player1 - racket_height) {
 		// set fly direction depending on where it hit the racket
 		// (t is 0.5 if hit at top, 0 at center, -0.5 at bottom)
-		float t = ((ballY - player1) / racket_height) - 0.5f;
-		ballDirX = -0.5;//= -fabs(ballDirX); // force it to be negative
+		float t = ((ballY - player1) / (racket_height*2)) - 0.02;
+		ballDirX = -fabs(ballDirX); // force it to be negative
 		ballDirY = t;
 	}
 
 	// hit left wall?
-	//if (ballX < 0) {
-	//	++score_right;
-	//	ballX = width / 2;
-	//	ballY = height / 2;
-	//	ballDirX = fabs(ballDirX); // force it to be positive
-	//	ballDirY = 0;
-	//}
+	if (ballX < -5) {
+//		++score_right;
+		ballX = 0;
+		ballY = 0;
+		ballDirX = fabs(ballDirX); // force it to be positive
+		ballDirY = 0;
+	}
 
-	// hit right wall?
-	//if (ballX > width) {
-	//	++score_left;
-	//	ballX = width / 2;
-	//	ballY = height / 2;
-	//	ballDirX = -fabs(ballDirX); // force it to be negative
-	//	ballDirY = 0;
-	//}
+	 // hit right wall?
+	if (ballX > 5) {
+//		++score_left;
+		ballX = 0;
+		ballY = 0;
+		ballDirX = -fabs(ballDirX); // force it to be negative
+		ballDirY = 0;
+	}
 
 	// hit top wall?
-	if (ballY > 3) {
-		ballDirY = -fabs(ballDirY); // force it to be negative
+	if (ballY > 4.7) {
+		ballDirY = -0.5; // force it to be negative
 	}
 
 	// hit bottom wall?
-	if (ballY < -3) {
-		ballDirY = fabs(ballDirY); // force it to be positive
+	if (ballY < -4.7) {
+		ballDirY = 0.5; // force it to be positive
 	}
 
 }

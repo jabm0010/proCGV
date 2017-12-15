@@ -16,11 +16,11 @@ class cgvScene3D {
 		float player1;
 		float player2;
 
-		float ballX;
-		float ballY;
+		double ballX;
+		double ballY;
 
-		float ballDirX;
-		float ballDirY;
+		double ballDirX;
+		double ballDirY;
 
 		bool axes;
 
