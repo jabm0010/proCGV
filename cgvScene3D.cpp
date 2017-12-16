@@ -1,6 +1,5 @@
 #include <cstdlib>
 #include <stdio.h>
-#include <tgmath.h>
 
 #include "cgvScene3D.h"
 
@@ -140,8 +139,8 @@ void cgvScene3D::movePlayer2(float value) {
 }
 
 void cgvScene3D::ballMovement() {
-	ballX += ballDirX * 0.04;
-	ballY += ballDirY * 0.04;
+	ballX += ballDirX * 0.002;
+	ballY += ballDirY * 0.002;
 
 	float racket_width = 0.25;
 	float racket_height = 1.75;
@@ -153,7 +152,7 @@ void cgvScene3D::ballMovement() {
 		ballY > player2 - racket_height) {
 		// set fly direction depending on where it hit the racket
 		// (t is 0.5 if hit at top, 0 at center, -0.5 at bottom)
-		float t = ((ballY - player2) / (racket_height*2)) - 0.02;
+		float t = ((ballY - player2) / (racket_height)) - 0.02;
 		ballDirX = fabs(ballDirX); // force it to be positive
 		ballDirY = t;
 	}
