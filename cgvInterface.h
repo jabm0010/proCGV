@@ -28,17 +28,9 @@ class cgvInterface {
 		cgvCamera camera; // Camera to visualize the scene
 		cameraType camType; // Camera type 	CGV_PARALLEL or CGV_PERSPECTIVE
 
-
-
-
-
-
 		///// Section D: attributes to selecting by mouse
 		interfaceMode mode; // CGV_VISUALIZE: in the window where the scene is usually rendered  
-							// CGV_SELECT: the user has clicked, the scene must be rendered in selection mode to compute the list of 							  // impacts
-		int cursorX,cursorY; // pixel of the screen where the mouse is placed while clicking or dragging 
-		int selected_object; // code of the selected object, -1 if there is no selected object
-		bool pressed_button; // button pressed (true) or released(false)
+							// CGV_SELECT: the user has clicked, the scene must be rendered in selection mode to compute the list of
 
 	public:
 
@@ -48,12 +40,11 @@ class cgvInterface {
 
 		// Static methods
 		// event callbacks
-		static void set_glutKeyboardFunc(unsigned char key, int x, int y); // method to control keyboard events
+		static void set_glutKeyboardFunc(); // method to control keyboard events
 		static void set_glutReshapeFunc(int w, int h); // method to define the camera and the viewport
 		                                               // it is automatically called when the window is resized
 		static void set_glutDisplayFunc(); // method to render the scene
 
-		static void  set_idleFunc();
 
 		static void menuHandle(int value); // method to handle the menu
 		void create_menu(); // Create a menu that is handle with the right button of the mouse. 
@@ -72,7 +63,6 @@ class cgvInterface {
 
 		static void visible(int vis);
 		static void idle();
-		void init_idleFunc();
 
 		// methods get_ and set_ to access the attributes
 		int get_width_window(){return width_window;};

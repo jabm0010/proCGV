@@ -1,6 +1,6 @@
 #include <cstdlib>
 #include <stdio.h>
-
+#include <sstream>
 
 #include "cgvScene3D.h"
 
@@ -15,6 +15,9 @@ GLfloat white[] = { 1, 1, 1 };
 cgvScene3D::cgvScene3D () {
 	axes = true;
 // Section B: initialize the attributes to control the degrees of freedom of the model
+
+	scoreP1 = 0;
+	scoreP2 = 0;
 
 	ballDirX = 1;
 	ballDirY = 0.0;
@@ -104,10 +107,10 @@ void cgvScene3D::render(void) {
 	  float mesh_color[4] = {1.0, 0.0, 0.0, 1.0}; 
 	  glMaterialfv(GL_FRONT,GL_EMISSION,mesh_color);
 
-	  //Borde superior
+	  //Top border
 	  glPushMatrix();
 	    glMaterialfv(GL_FRONT, GL_EMISSION, colour1);
-		glTranslatef(0, 0, 4);
+		glTranslatef(0, 0, 5);
 		glScalef(20, 0.5, 0.25);
 		glutSolidCube(1);
       glPopMatrix();
@@ -121,14 +124,14 @@ void cgvScene3D::render(void) {
 	  glPopMatrix();
 
 	  //Delimiter
-	  glPushMatrix();
-		  glMaterialfv(GL_FRONT, GL_EMISSION, colour1);
-		  glTranslatef(0, 0, 5);
-		  glScalef(0.25, 0.5, 2);
-		  glutSolidCube(1);
-		  glPopMatrix();
+	  //glPushMatrix();
+		 // glMaterialfv(GL_FRONT, GL_EMISSION, colour1);
+		 // glTranslatef(0, 0, 5);
+		 // glScalef(0.25, 0.5, 2);
+		 // glutSolidCube(1);
+		 // glPopMatrix();
 
-	  glPushMatrix();
+	  //glPushMatrix();
 
 	  drawPlayer1();
 	  drawPlayer2();
@@ -140,7 +143,7 @@ void cgvScene3D::render(void) {
 
 
 void cgvScene3D::movePlayer1(float value) {
-	if (value > 0 && player1 < 3) {
+	if (value > 0 && player1 < 4) {
 		player1 += value;
 	}
 	if (value < 0 && player1 > -4) {
@@ -150,7 +153,7 @@ void cgvScene3D::movePlayer1(float value) {
 
 
 void cgvScene3D::movePlayer2(float value) {	
-	if (value > 0 && player2 < 3) {
+	if (value > 0 && player2 < 4) {
 		player2 += value;
 	}
 	if (value < 0 && player2 > -4) {
@@ -163,7 +166,7 @@ void cgvScene3D::ballMovement() {
 	ballY += ballDirY * 0.002;
 
 	float racket_width = 0.25;
-	float racket_height = 1.75;
+	float racket_height = 1.5;
 
 	// hit by left racket?
 	if (ballX < -4.5 + racket_width &&

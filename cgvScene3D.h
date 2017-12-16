@@ -13,6 +13,9 @@
 class cgvScene3D {
 	protected:
 
+		int scoreP1;
+		int scoreP2;
+
 		float player1;
 		float player2;
 
@@ -41,6 +44,7 @@ class cgvScene3D {
 	void drawPlayer1();
 	void drawPlayer2();
 	void drawBall();
+
 
 	void movePlayer1(float value);
 	void movePlayer2(float value);

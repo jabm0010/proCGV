@@ -10,9 +10,6 @@ extern cgvInterface interface; // the callbacks must be static and this object i
 cgvInterface::cgvInterface():camType(CGV_PARALLEL)  {
 //// Section D: initialize the attributes to select objects by list of impacts
 	mode = CGV_VISUALIZE;
-	selected_object = -1;
-	pressed_button = false;
-
 }
 
 cgvInterface::~cgvInterface () {}
@@ -90,36 +87,18 @@ void cgvInterface::create_menu() {
 
 
 
-void cgvInterface::set_glutKeyboardFunc(unsigned char key, int x, int y) {
-  switch (key) {
+void cgvInterface::set_glutKeyboardFunc( ) {
 
-	 case 'w':
-		 interface.scene.movePlayer1(0.2);
-	 break;
-	 case 's':
-		 interface.scene.movePlayer1(-0.2);
-	break;
-	 case 'i':
-		 interface.scene.movePlayer2(0.2);
-		 break;
-	 case 'k':
-		 interface.scene.movePlayer2(-0.2);
-		 break;
-
-    case 'a': // enable/disable the visualization of the axes
-			interface.scene.set_axes(interface.scene.get_axes()?false:true);
-
-	  break;
-    case 27: // Escape key to exit
-      exit(1);
-    break;
-  }
-	glutPostRedisplay(); // renew the content of the window
+	if ( GetAsyncKeyState(0x57) ) interface.scene.movePlayer1(0.0025);
+	if ( GetAsyncKeyState(0x49) ) interface.scene.movePlayer2(0.0025);
+	if ( GetAsyncKeyState(0x53) ) interface.scene.movePlayer1(-0.0025);
+	if ( GetAsyncKeyState(0x4B) ) interface.scene.movePlayer2(-0.0025);
+	if ( GetAsyncKeyState(0x41) ) interface.scene.set_axes(interface.scene.get_axes() ? false : true);
+	if ( GetAsyncKeyState(VK_ESCAPE) ) exit(1);
 }
 
 void cgvInterface::set_glutReshapeFunc(int w, int h) {
   // dimension of the viewport with a new width and a new height of the display window 
-
 
   // store the new values of the viewport and the display window. 
   interface.set_width_window(w);
@@ -131,7 +110,6 @@ void cgvInterface::set_glutReshapeFunc(int w, int h) {
 }
 
 void cgvInterface::set_glutDisplayFunc() {
-	GLuint impact_list[1024]; // array with the list of impacts when it is rendered in selection mode
 
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the window and the z-buffer
@@ -149,7 +127,6 @@ void cgvInterface::set_glutDisplayFunc() {
 }
 
 void cgvInterface::init_callbacks() {
-	glutKeyboardFunc(set_glutKeyboardFunc);
 	glutReshapeFunc(set_glutReshapeFunc);
 	glutDisplayFunc(set_glutDisplayFunc); 
 	glutVisibilityFunc(interface.visible);
@@ -161,22 +138,12 @@ void cgvInterface::visible(int iVis)
 		glutIdleFunc(interface.idle);
 	else
 		glutIdleFunc(NULL);
-
 	return;
 }
 
 void cgvInterface::idle(void)
 {
-	float fTime, fSimTime;
-	float static fLastIdleTime = 0;
-
-	fTime = 1000 / 60;
-
-	fSimTime = fTime - fLastIdleTime;
-
+	set_glutKeyboardFunc();
 	interface.scene.ballMovement();
-
-	fLastIdleTime = fTime;
-
 	glutPostRedisplay();
 }
