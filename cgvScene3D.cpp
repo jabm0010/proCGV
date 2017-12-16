@@ -6,6 +6,10 @@
 #include "cgvScene3D.h"
 #include "cgvTexture.h"
 
+#pragma comment (lib,"opengl32.lib")
+#pragma comment (lib,"glu32.lib")
+#pragma comment (lib,"glut32.lib")	
+
 // Constructor methods -----------------------------------
 
 GLfloat colour1[] = { 0,0.7,0 };
@@ -30,7 +34,7 @@ cgvScene3D::cgvScene3D () {
 
 	scoreP1 = 0;
 	scoreP2 = 0;
-
+	difficulty = 0.002;
 // Section D: initialize the attribute/s that identifies the select object and to colour it yellow
 
 }
@@ -110,7 +114,7 @@ void cgvScene3D::render(void) {
 	  float mesh_color[4] = {1.0, 0.0, 0.0, 1.0}; 
 	 // glMaterialfv(GL_FRONT,GL_EMISSION,mesh_color);
 
-	  //Top Border
+	 // Top Border
 	  glPushMatrix();
 	    glMaterialfv(GL_FRONT, GL_EMISSION, colour1);
 		glTranslatef(0, 0, 4);
@@ -132,53 +136,77 @@ void cgvScene3D::render(void) {
 		  glTranslatef(0, 0, 5);
 		  glScalef(0.25, 0.5, 2);
 		  glutSolidCube(1);
-		  glPopMatrix();
+	 glPopMatrix();
 
-	  glPushMatrix();
+	 //glPushMatrix();
+	 //glMaterialfv(GL_FRONT, GL_EMISSION, colour1);
+	 //drawRect(1, 1, 1, 1);
+	 //glPopMatrix();
 
-	  glPushMatrix();
-	  glMaterialfv(GL_FRONT, GL_EMISSION, black);
-	//	cgvTexture texture("LAND.bmp");
-		  glBegin(GL_QUADS);
-		  	glVertex3f(-5, 0.0, 4);
-			glTexCoord2f(-5, 4);
-		  	glVertex3f(-5, 0.0, -5);
-			glTexCoord2f(-5, -5);
-		 	glVertex3f(5, 0.0, -5);
-			glTexCoord2f(5, -5);
-		 	glVertex3f(5, 0.0, 4);
-			glTexCoord2f(5, 4);
-		  glEnd();
-	  glPopMatrix();
 
-	  glPushMatrix();
-	  glMaterialfv(GL_FRONT, GL_EMISSION, blue);
-	 // cgvTexture texture("p1.bmp");
-	  glBegin(GL_QUADS);
-		  glVertex3f(-5, 0.0, 5);
-		  glTexCoord2f(-5, 5);
-		  glVertex3f(-5, 0.0, 4);
-		  glTexCoord2f(-5, 4);
-		  glVertex3f(-2, 0.0, 4);
-		  glTexCoord2f(-2, 4);
-		  glVertex3f(-2, 0.0, 5);
-		  glTexCoord2f(-2, 5);
-		  glEnd();
-	  glPopMatrix();
+	 // glPushMatrix();
+	 // glMaterialfv(GL_FRONT, GL_EMISSION, black);
+		////cgvTexture texture("map.bmp");
+		//  glBegin(GL_QUADS);
+		//  	glVertex3f(-5, 0.0, 4);
+		//	glTexCoord2f(-5, 4);
+		//  	glVertex3f(-5, 0.0, -5);
+		//	glTexCoord2f(-5, -5);
+		// 	glVertex3f(5, 0.0, -5);
+		//	glTexCoord2f(5, -5);
+		// 	glVertex3f(5, 0.0, 4);
+		//	glTexCoord2f(5, 4);
+		//  glEnd();
+	 // glPopMatrix();
 
-	  glMaterialfv(GL_FRONT, GL_EMISSION, red);
-		  //cgvTexture texture("map.bmp");
-		  glBegin(GL_QUADS);
-		  glVertex3f(5, 0.0, 5);
-		  //glTexCoord2f(-5, 5);
-		  glVertex3f(5, 0.0, 4);
-		  //  glTexCoord2f(-5, 4.5);
-		  glVertex3f(2, 0.0, 4);
-		  // glTexCoord2f(5, 4.5);
-		  glVertex3f(2, 0.0, 5);
-		  //  glTexCoord2f(-4.5, 5);
-		  glEnd();
-	  glPopMatrix();
+	 // glPushMatrix();
+	 // glMaterialfv(GL_FRONT, GL_EMISSION, blue);
+	 //// cgvTexture texture("p1.bmp");
+	 // glBegin(GL_QUADS);
+		//  glVertex3f(-5, 0.0, 5);
+		//  glTexCoord2f(-5, 5);
+		//  glVertex3f(-5, 0.0, 4);
+		//  glTexCoord2f(-5, 4);
+		//  glVertex3f(-2, 0.0, 4);
+		//  glTexCoord2f(-2, 4);
+		//  glVertex3f(-2, 0.0, 5);
+		//  glTexCoord2f(-2, 5);
+		//  glEnd();
+	 // glPopMatrix();
+
+	 // glMaterialfv(GL_FRONT, GL_EMISSION, red);
+		//  //cgvTexture texture("map.bmp");
+		//  glBegin(GL_QUADS);
+		//  glVertex3f(5, 0.0, 5);
+		//  //glTexCoord2f(-5, 5);
+		//  glVertex3f(5, 0.0, 4);
+		//  //  glTexCoord2f(-5, 4.5);
+		//  glVertex3f(2, 0.0, 4);
+		//  // glTexCoord2f(5, 4.5);
+		//  glVertex3f(2, 0.0, 5);
+		//  //  glTexCoord2f(-4.5, 5);
+		//  glEnd();
+	 // glPopMatrix();
+
+	 //glPushMatrix();
+
+	 //glBegin(GL_QUADS);
+	 //glMaterialfv(GL_FRONT, GL_EMISSION, colour1);
+	 ////Buttom Left
+	 //glVertex3f(0, 0, 0);
+	 ////Buttom Right
+	 //glVertex3f(0, 0, 0.1);
+	 ////Top Right
+	 //glVertex3f(0.5, 0, 0);
+
+	 //glVertex3f(0.5, 0, 0.1);
+
+	 //glEnd();
+
+	 drawNumber(3,1,4.4);
+	 drawNumber(3, -1, 4.4);
+
+
 
 	  drawPlayer1();
 	  drawPlayer2();
@@ -213,8 +241,8 @@ void cgvScene3D::movePlayer2(float value) {
 }
 
 void cgvScene3D::ballMovement() {
-	ballX += ballDirX * 0.002;
-	ballY += ballDirY * 0.002;
+	ballX += ballDirX * difficulty;
+	ballY += ballDirY * difficulty;
 
 	float racket_width = 0.25;
 	float racket_height = 1.75;
@@ -271,5 +299,265 @@ void cgvScene3D::ballMovement() {
 		ballDirY = 0.5; // force it to be positive
 	}
 
+
+
+
 }
 
+
+
+
+//void draw_quad(float div_x, float div_z,float _size_x,float _size_z) {
+//	float ini_x = 0.0;
+//	float ini_z = 0.0;
+//	float size_x = _size_x;
+//	float size_z = _size_z;
+//	float width = size_x / div_x;
+//	float length = size_z / div_z;
+//	float currentX = 0, currentZ = 0;
+//
+//
+//
+//	glNormal3f(0, 1, 0);
+//	glBegin(GL_QUADS);
+//	for (int i = 0; i < div_x; i++) {
+//		for (int j = 0; j < div_z; j++) {
+//			glTexCoord2f(currentX / size_x, currentZ / size_z);
+//			glVertex3f(currentX, 0.0, currentZ);
+//
+//			glTexCoord2f(currentX / size_x, (currentZ + length) / size_z);
+//			glVertex3f(currentX, 0.0, currentZ + length);
+//
+//			glTexCoord2f((currentX + width) / size_x, (currentZ + length) / size_z);
+//			glVertex3f(currentX + width, 0.0, currentZ + length);
+//
+//			glTexCoord2f((currentX + width) / size_x, currentZ / size_z);
+//			glVertex3f(currentX + width, 0.0, currentZ);
+//			currentZ += length;
+//		}
+//		currentX += width;
+//		currentZ = 0;
+//	}
+//	glEnd();
+//
+//
+//
+//
+//}
+
+
+void  cgvScene3D::drawNumber(int n,double x,double z) {
+
+	switch (n) {
+
+	case 0:
+		glPushMatrix();
+
+		glBegin(GL_QUADS);
+		glMaterialfv(GL_FRONT, GL_EMISSION, colour1);
+
+		glVertex3f(x, 0, z);
+
+		glVertex3f(x, 0, z+0.1);
+
+		glVertex3f(x+0.5, 0, z+0.1);
+
+		glVertex3f(x+0.5, 0, z);
+
+		glEnd();
+		//--------
+		glBegin(GL_QUADS);
+		glMaterialfv(GL_FRONT, GL_EMISSION, colour1);
+
+		glVertex3f(x+0.5, 0, z+0.1);
+
+		glVertex3f(x+0.5, 0, z+0.5);
+
+		glVertex3f(x+0.4, 0, z+0.5);
+
+		glVertex3f(x+0.4, 0, z+0.1);
+
+		glEnd();
+		//-------
+		glBegin(GL_QUADS);
+		glMaterialfv(GL_FRONT, GL_EMISSION, colour1);
+
+		glVertex3f(x+0.4, 0, z+0.5);
+
+		glVertex3f(x + 0, 0, z + 0.5);
+
+		glVertex3f(x + 0., 0, z + 0.4);
+
+		glVertex3f(x + 0.4, 0, z + 0.4);
+
+		glEnd();
+
+		//-------
+		glBegin(GL_QUADS);
+		glMaterialfv(GL_FRONT, GL_EMISSION, colour1);
+
+		glVertex3f(x, 0, z + 0.5);
+
+		glVertex3f(x, 0, z + 0.1);
+
+		glVertex3f(x+0.1, 0, z + 0.1);
+
+		glVertex3f(x+0.1, 0, z + 0.5);
+
+		glEnd();
+
+
+		glPopMatrix();
+		break;
+
+	case 1:
+
+		glPushMatrix();
+		glBegin(GL_QUADS);
+		glMaterialfv(GL_FRONT, GL_EMISSION, colour1);
+
+		glVertex3f(x, 0, z);
+
+		glVertex3f(x+0.1, 0, z );
+
+		glVertex3f(x + 0.1, 0, z + 0.5);
+
+		glVertex3f(x , 0, z + 0.5);
+
+		glEnd();
+
+
+		glPopMatrix();
+
+		break;
+	case 2:
+		glPushMatrix();
+
+		glBegin(GL_QUADS);
+		glMaterialfv(GL_FRONT, GL_EMISSION, colour1);
+
+		glVertex3f(x, 0, z+0.15);
+
+		glVertex3f(x, 0, z + 0.25);
+
+		glVertex3f(x + 0.5, 0, z + 0.25);
+
+		glVertex3f(x + 0.5, 0, z+0.15);
+
+		glEnd();
+		//-----
+		glBegin(GL_QUADS);
+		glMaterialfv(GL_FRONT, GL_EMISSION, colour1);
+
+		glVertex3f(x + 0.5, 0, z + 0.5);
+
+		glVertex3f(x + 0, 0, z + 0.5);
+
+		glVertex3f(x + 0., 0, z + 0.4);
+
+		glVertex3f(x + 0.5, 0, z + 0.4);
+
+		glEnd();
+
+		//-------
+		glBegin(GL_QUADS);
+		glMaterialfv(GL_FRONT, GL_EMISSION, colour1);
+
+		glVertex3f(x, 0, z + 0.5);
+
+		glVertex3f(x, 0, z + 0.25);
+
+		glVertex3f(x + 0.1, 0, z + 0.25);
+
+		glVertex3f(x + 0.1, 0, z + 0.5);
+
+		glEnd();
+		//--------
+		glBegin(GL_QUADS);
+		glMaterialfv(GL_FRONT, GL_EMISSION, colour1);
+
+		glVertex3f(x + 0.5, 0, z + 0.15);
+
+		glVertex3f(x + 0.5, 0, z - 0.15);
+
+		glVertex3f(x + 0.4, 0, z - 0.15);
+
+		glVertex3f(x + 0.4, 0, z + 0.15);
+
+		glEnd();
+		//-------
+		glBegin(GL_QUADS);
+		glMaterialfv(GL_FRONT, GL_EMISSION, colour1);
+
+		glVertex3f(x, 0, z-0.15);
+
+		glVertex3f(x, 0, z - 0.05);
+
+		glVertex3f(x + 0.5, 0, z - 0.05);
+
+		glVertex3f(x + 0.5, 0, z-0.15);
+
+		glEnd();
+
+		break;
+
+	case 3:
+		glBegin(GL_QUADS);
+		glMaterialfv(GL_FRONT, GL_EMISSION, colour1);
+
+		glVertex3f(x, 0, z + 0.5);
+
+		glVertex3f(x, 0, z - 0.1);
+
+		glVertex3f(x + 0.1, 0, z-0.1 );
+
+		glVertex3f(x + 0.1, 0, z + 0.5);
+
+		glEnd();
+
+		//------
+
+		glBegin(GL_QUADS);
+		glMaterialfv(GL_FRONT, GL_EMISSION, colour1);
+
+		glVertex3f(x, 0, z+0.5);
+
+		glVertex3f(x, 0, z + 0.4);
+
+		glVertex3f(x + 0.5, 0, z + 0.4);
+
+		glVertex3f(x + 0.5, 0, z+0.5);
+
+		glEnd();
+		//------
+
+		glBegin(GL_QUADS);
+		glMaterialfv(GL_FRONT, GL_EMISSION, colour1);
+
+		glVertex3f(x, 0, z + 0.25);
+
+		glVertex3f(x, 0, z + 0.15);
+
+		glVertex3f(x + 0.5, 0, z + 0.15);
+
+		glVertex3f(x + 0.5, 0, z + 0.25);
+
+		glEnd();
+		//------
+
+		glBegin(GL_QUADS);
+		glMaterialfv(GL_FRONT, GL_EMISSION, colour1);
+
+		glVertex3f(x, 0, z );
+
+		glVertex3f(x, 0, z - 0.1);
+
+		glVertex3f(x + 0.5, 0, z -0.1);
+
+		glVertex3f(x + 0.5, 0, z );
+
+		glEnd();
+		break;
+	}
+
+}

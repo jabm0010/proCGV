@@ -7,7 +7,7 @@ cgvTexture::cgvTexture(char *file) {
 	unsigned int width, height;
 
 	// load the BMP image in memory
-	image = loadBMPRaw(file, width, height, true);
+	image = loadBMPRaw(file, width, height, false);
 
 	/* TODO: Section H: Add here the code to load the BMP image as a texture */
 	/*
@@ -23,7 +23,7 @@ cgvTexture::cgvTexture(char *file) {
 	//2
 	glGenTextures(1, &idTexture);
 	//3
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 	//4
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
