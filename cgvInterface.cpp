@@ -12,6 +12,7 @@ cgvInterface::cgvInterface():camType(CGV_PARALLEL)  {
 	mode = CGV_VISUALIZE;
 	selected_object = -1;
 	pressed_button = false;
+
 }
 
 cgvInterface::~cgvInterface () {}
@@ -70,19 +71,20 @@ void cgvInterface::create_menu() {
 
 
 }
-void cgvInterface::menuHandle(int value)
+ void cgvInterface::menuHandle(int value)
 {
 
-;	switch (value) {
+		switch (value) {
 	case 1:
-		difficulty = 0.002;
+		interface.scene.difficulty = 0.002;
 		break;
 	case 2:
-		difficulty = 0.004;
+		interface.scene.difficulty = 0.004;
 		break;
 	case 3:
-		difficulty = 0.006;
-}
+		interface.scene.difficulty = 0.006;
+		break;
+	}
 	glutPostRedisplay(); // renew the content of the window
 }
 
@@ -178,4 +180,3 @@ void cgvInterface::idle(void)
 
 	glutPostRedisplay();
 }
-

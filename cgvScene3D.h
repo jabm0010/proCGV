@@ -12,22 +12,21 @@
 
 class cgvScene3D {
 	protected:
-////// Section B: add here the attributes to control the degrees of freedom of the model
 
 		float player1;
 		float player2;
 
+		double ballX;
+		double ballY;
 
-////// Section D: add here the attribute/s to control the selected object and to color it yellow
-
-
-		// Additional attributes		
-
-
+		double ballDirX;
+		double ballDirY;
 
 		bool axes;
 
 	public:
+
+		double difficulty;
 		// Default constructor and destructor
 		cgvScene3D();
 		~cgvScene3D();
@@ -41,12 +40,11 @@ class cgvScene3D {
 
 	void drawPlayer1();
 	void drawPlayer2();
-	
-	////// Section B: include here the methods to modify the degrees of freedom of the model
+	void drawBall();
 
 	void movePlayer1(float value);
 	void movePlayer2(float value);
-
+	void ballMovement();
 	////// Section D: include here the method/s to indicate the selected object
 
 		bool get_axes() {return axes;};

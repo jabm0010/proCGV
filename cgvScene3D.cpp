@@ -104,21 +104,31 @@ void cgvScene3D::render(void) {
 	  float mesh_color[4] = {1.0, 0.0, 0.0, 1.0}; 
 	  glMaterialfv(GL_FRONT,GL_EMISSION,mesh_color);
 
-	  //Borde superior
+	  //Top Border
 	  glPushMatrix();
 	    glMaterialfv(GL_FRONT, GL_EMISSION, colour1);
-		glTranslatef(0, 0, 5);
-		glScalef(20, 0.5, 0.5);
+		glTranslatef(0, 0, 4);
+		glScalef(20, 0.5, 0.25);
 		glutSolidCube(1);
       glPopMatrix();
 
-	  //Borde inferior
+	  //Bottom border
 	  glPushMatrix();
 	      glMaterialfv(GL_FRONT, GL_EMISSION, colour1);
 		  glTranslatef(0, 0, -5);
 		  glScalef(20, 0.5, 0.5);
 		  glutSolidCube(1);
 	  glPopMatrix();
+
+	  //Delimiter
+	  glPushMatrix();
+		  glMaterialfv(GL_FRONT, GL_EMISSION, colour1);
+		  glTranslatef(0, 0, 5);
+		  glScalef(0.25, 0.5, 2);
+		  glutSolidCube(1);
+		  glPopMatrix();
+
+	  glPushMatrix();
 
 	  drawPlayer1();
 	  drawPlayer2();
@@ -130,7 +140,7 @@ void cgvScene3D::render(void) {
 
 
 void cgvScene3D::movePlayer1(float value) {
-	if (value > 0 && player1 < 4) {
+	if (value > 0 && player1 < 3) {
 		player1 += value;
 	}
 	if (value < 0 && player1 > -4) {
@@ -142,7 +152,7 @@ void cgvScene3D::movePlayer1(float value) {
 
 void cgvScene3D::movePlayer2(float value) {	
 
-	if (value > 0 && player2 < 4) {
+	if (value > 0 && player2 < 3) {
 		player2 += value;
 	}
 	if (value < 0 && player2 > -4) {
@@ -202,7 +212,7 @@ void cgvScene3D::ballMovement() {
 	}
 
 	// hit top wall?
-	if (ballY > 4.7) {
+	if (ballY > 3.7) {
 		ballDirY = -0.5; // force it to be negative
 	}
 
@@ -212,3 +222,4 @@ void cgvScene3D::ballMovement() {
 	}
 
 }
+

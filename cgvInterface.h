@@ -1,3 +1,9 @@
+#ifndef __CGVINTERFACE
+#define __CGVINTERFACE
+
+#if defined(__APPLE__) && defined(__MACH__)
+#include <GLUT/glut.h>
+#include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
 #else
 #include <GL/glut.h>
@@ -22,7 +28,8 @@ class cgvInterface {
 		cgvCamera camera; // Camera to visualize the scene
 		cameraType camType; // Camera type 	CGV_PARALLEL or CGV_PERSPECTIVE
 
-		double difficulty;
+
+
 
 
 
@@ -34,6 +41,7 @@ class cgvInterface {
 		bool pressed_button; // button pressed (true) or released(false)
 
 	public:
+
 		// Default constructor and destructor
 		cgvInterface();
 		~cgvInterface();
@@ -51,7 +59,7 @@ class cgvInterface {
 
 
 
-		static void menuHandle(int value); // method to handle the menu
+	  static void menuHandle(int value); // method to handle the menu
 		void create_menu(); // Create a menu that is handle with the right button of the mouse. 
 		
 		// create the world that is render in the window
