@@ -25,6 +25,8 @@ class cgvScene3D {
 		bool axes;
 
 	public:
+
+		double difficulty;
 		// Default constructor and destructor
 		cgvScene3D();
 		~cgvScene3D();

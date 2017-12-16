@@ -12,6 +12,7 @@ cgvInterface::cgvInterface():camType(CGV_PARALLEL)  {
 	mode = CGV_VISUALIZE;
 	selected_object = -1;
 	pressed_button = false;
+
 }
 
 cgvInterface::~cgvInterface () {}
@@ -41,6 +42,8 @@ void cgvInterface::configure_environment(int argc, char** argv,
   glutInitWindowPosition(_pos_X,_pos_Y);
 	glutCreateWindow(_title.c_str());
 
+	create_menu();
+
 	glEnable(GL_DEPTH_TEST); // enable the removal of hidden surfaces by using the z-buffer
 	//Modified to put the colour black
   glClearColor(0,0,0,0.0); // define the background color of the window
@@ -56,6 +59,36 @@ void cgvInterface::configure_environment(int argc, char** argv,
 void cgvInterface::init_rendering_loop() {
 	glutMainLoop(); // initialize the visualization loop of OpenGL
 }
+
+void cgvInterface::create_menu() {
+	int menu_id = glutCreateMenu(menuHandle);
+
+	glutAddMenuEntry("Easy", 1);
+	glutAddMenuEntry("Medium", 2);
+	glutAddMenuEntry("Difficult",3);
+
+	glutAttachMenu(GLUT_RIGHT_BUTTON);
+
+
+}
+ void cgvInterface::menuHandle(int value)
+{
+
+		switch (value) {
+	case 1:
+		interface.scene.difficulty = 0.002;
+		break;
+	case 2:
+		interface.scene.difficulty = 0.004;
+		break;
+	case 3:
+		interface.scene.difficulty = 0.006;
+		break;
+	}
+	glutPostRedisplay(); // renew the content of the window
+}
+
+
 
 void cgvInterface::set_glutKeyboardFunc(unsigned char key, int x, int y) {
   switch (key) {

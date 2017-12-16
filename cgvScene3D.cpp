@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <stdio.h>
 
+
 #include "cgvScene3D.h"
 
 // Constructor methods -----------------------------------
@@ -106,18 +107,28 @@ void cgvScene3D::render(void) {
 	  //Borde superior
 	  glPushMatrix();
 	    glMaterialfv(GL_FRONT, GL_EMISSION, colour1);
-		glTranslatef(0, 0, 5);
-		glScalef(20, 0.5, 0.5);
+		glTranslatef(0, 0, 4);
+		glScalef(20, 0.5, 0.25);
 		glutSolidCube(1);
       glPopMatrix();
 
-	  //Borde inferior
+	  //Bottom border
 	  glPushMatrix();
 	      glMaterialfv(GL_FRONT, GL_EMISSION, colour1);
 		  glTranslatef(0, 0, -5);
 		  glScalef(20, 0.5, 0.5);
 		  glutSolidCube(1);
 	  glPopMatrix();
+
+	  //Delimiter
+	  glPushMatrix();
+		  glMaterialfv(GL_FRONT, GL_EMISSION, colour1);
+		  glTranslatef(0, 0, 5);
+		  glScalef(0.25, 0.5, 2);
+		  glutSolidCube(1);
+		  glPopMatrix();
+
+	  glPushMatrix();
 
 	  drawPlayer1();
 	  drawPlayer2();
@@ -129,13 +140,22 @@ void cgvScene3D::render(void) {
 
 
 void cgvScene3D::movePlayer1(float value) {
-	player1 += value;
+	if (value > 0 && player1 < 3) {
+		player1 += value;
+	}
+	if (value < 0 && player1 > -4) {
+		player1 += value;
+	}
 }
 
 
 void cgvScene3D::movePlayer2(float value) {	
-	player2 += value;
-
+	if (value > 0 && player2 < 3) {
+		player2 += value;
+	}
+	if (value < 0 && player2 > -4) {
+		player2 += value;
+	}
 }
 
 void cgvScene3D::ballMovement() {
@@ -153,6 +173,7 @@ void cgvScene3D::ballMovement() {
 		// set fly direction depending on where it hit the racket
 		// (t is 0.5 if hit at top, 0 at center, -0.5 at bottom)
 		float t = ((ballY - player2) / (racket_height)) - 0.02;
+
 		ballDirX = fabs(ballDirX); // force it to be positive
 		ballDirY = t;
 	}

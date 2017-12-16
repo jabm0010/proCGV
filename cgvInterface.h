@@ -28,6 +28,11 @@ class cgvInterface {
 		cgvCamera camera; // Camera to visualize the scene
 		cameraType camType; // Camera type 	CGV_PARALLEL or CGV_PERSPECTIVE
 
+
+
+
+
+
 		///// Section D: attributes to selecting by mouse
 		interfaceMode mode; // CGV_VISUALIZE: in the window where the scene is usually rendered  
 							// CGV_SELECT: the user has clicked, the scene must be rendered in selection mode to compute the list of 							  // impacts
@@ -36,6 +41,7 @@ class cgvInterface {
 		bool pressed_button; // button pressed (true) or released(false)
 
 	public:
+
 		// Default constructor and destructor
 		cgvInterface();
 		~cgvInterface();
@@ -49,6 +55,8 @@ class cgvInterface {
 
 		static void  set_idleFunc();
 
+		static void menuHandle(int value); // method to handle the menu
+		void create_menu(); // Create a menu that is handle with the right button of the mouse. 
 		
 		// create the world that is render in the window
 		void create_world(void);
