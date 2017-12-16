@@ -2,7 +2,9 @@
 #include <stdio.h>
 
 
+
 #include "cgvScene3D.h"
+#include "cgvTexture.h"
 
 // Constructor methods -----------------------------------
 
@@ -10,6 +12,7 @@ GLfloat colour1[] = { 0,0.7,0 };
 GLfloat blue[] = { 0,0,1 };
 GLfloat red[] = { 1,0,0 };
 GLfloat white[] = { 1, 1, 1 };
+GLfloat black[] = { 0,0,0 };
 
 
 cgvScene3D::cgvScene3D () {
@@ -24,6 +27,9 @@ cgvScene3D::cgvScene3D () {
 
 	player1 = 0;
 	player2 = 0;
+
+	scoreP1 = 0;
+	scoreP2 = 0;
 
 // Section D: initialize the attribute/s that identifies the select object and to colour it yellow
 
@@ -102,7 +108,7 @@ void cgvScene3D::render(void) {
 
  		//glLightfv(GL_LIGHT0,GL_POSITION,light0); // the light is placed here and it moves with the scene
 	  float mesh_color[4] = {1.0, 0.0, 0.0, 1.0}; 
-	  glMaterialfv(GL_FRONT,GL_EMISSION,mesh_color);
+	 // glMaterialfv(GL_FRONT,GL_EMISSION,mesh_color);
 
 	  //Top Border
 	  glPushMatrix();
@@ -129,6 +135,50 @@ void cgvScene3D::render(void) {
 		  glPopMatrix();
 
 	  glPushMatrix();
+
+	  glPushMatrix();
+	  glMaterialfv(GL_FRONT, GL_EMISSION, black);
+	//	cgvTexture texture("LAND.bmp");
+		  glBegin(GL_QUADS);
+		  	glVertex3f(-5, 0.0, 4);
+			glTexCoord2f(-5, 4);
+		  	glVertex3f(-5, 0.0, -5);
+			glTexCoord2f(-5, -5);
+		 	glVertex3f(5, 0.0, -5);
+			glTexCoord2f(5, -5);
+		 	glVertex3f(5, 0.0, 4);
+			glTexCoord2f(5, 4);
+		  glEnd();
+	  glPopMatrix();
+
+	  glPushMatrix();
+	  glMaterialfv(GL_FRONT, GL_EMISSION, blue);
+	 // cgvTexture texture("p1.bmp");
+	  glBegin(GL_QUADS);
+		  glVertex3f(-5, 0.0, 5);
+		  glTexCoord2f(-5, 5);
+		  glVertex3f(-5, 0.0, 4);
+		  glTexCoord2f(-5, 4);
+		  glVertex3f(-2, 0.0, 4);
+		  glTexCoord2f(-2, 4);
+		  glVertex3f(-2, 0.0, 5);
+		  glTexCoord2f(-2, 5);
+		  glEnd();
+	  glPopMatrix();
+
+	  glMaterialfv(GL_FRONT, GL_EMISSION, red);
+		  //cgvTexture texture("map.bmp");
+		  glBegin(GL_QUADS);
+		  glVertex3f(5, 0.0, 5);
+		  //glTexCoord2f(-5, 5);
+		  glVertex3f(5, 0.0, 4);
+		  //  glTexCoord2f(-5, 4.5);
+		  glVertex3f(2, 0.0, 4);
+		  // glTexCoord2f(5, 4.5);
+		  glVertex3f(2, 0.0, 5);
+		  //  glTexCoord2f(-4.5, 5);
+		  glEnd();
+	  glPopMatrix();
 
 	  drawPlayer1();
 	  drawPlayer2();
@@ -195,7 +245,7 @@ void cgvScene3D::ballMovement() {
 
 	// hit left wall?
 	if (ballX < -5) {
-//		++score_right;
+		++scoreP1;
 		ballX = 0;
 		ballY = 0;
 		ballDirX = fabs(ballDirX); // force it to be positive
@@ -204,7 +254,7 @@ void cgvScene3D::ballMovement() {
 
 	 // hit right wall?
 	if (ballX > 5) {
-//		++score_left;
+		++scoreP2;
 		ballX = 0;
 		ballY = 0;
 		ballDirX = -fabs(ballDirX); // force it to be negative

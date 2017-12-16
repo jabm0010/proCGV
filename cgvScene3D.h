@@ -21,6 +21,8 @@ class cgvScene3D {
 
 		double ballDirX;
 		double ballDirY;
+		int scoreP1;
+		int scoreP2;
 
 		bool axes;
 
