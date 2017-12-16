@@ -7,6 +7,7 @@
 #include <OpenGL/glu.h>
 #else
 #include <GL/glut.h>
+#include "cgvTexture.h"
 #endif
 
 
@@ -23,6 +24,7 @@ class cgvScene3D {
 		double ballDirY;
 		int scoreP1;
 		int scoreP2;
+
 
 		bool axes;
 

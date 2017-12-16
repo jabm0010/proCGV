@@ -4,15 +4,17 @@
 
 #include "cgvScene3D.h"
 
+#include <iostream>
+
 // Constructor methods -----------------------------------
 
 GLfloat colour1[] = { 0,0.7,0 };
 GLfloat blue[] = { 0,0,1 };
 GLfloat red[] = { 1,0,0 };
 GLfloat white[] = { 1, 1, 1 };
+GLfloat c2[] = { 0,0.2,0.4 };
 
-
-cgvScene3D::cgvScene3D() {
+cgvScene3D::cgvScene3D(){
 	axes = true;
 	// Section B: initialize the attributes to control the degrees of freedom of the model
 
@@ -30,6 +32,7 @@ cgvScene3D::cgvScene3D() {
 
 	difficulty = 0.002;
 
+	
 	// Section D: initialize the attribute/s that identifies the select object and to colour it yellow
 
 }
@@ -93,6 +96,8 @@ void cgvScene3D::drawBall() {
 
 void cgvScene3D::render(void) {
 
+
+
 	// lights
 	GLfloat light0[4] = { 5.0,5.0,5.0,1 }; // point light source  
 	glLightfv(GL_LIGHT0, GL_POSITION, light0); // this light is placed here and it remains still 
@@ -133,18 +138,44 @@ void cgvScene3D::render(void) {
 	 glutSolidCube(1);
 	 glPopMatrix();
 
-	//glPushMatrix();
+
+
 
 	 drawNumber(scoreP1, 1, 4.4);
-	 if (scoreP2 != 1) {
-		 drawNumber(scoreP2, -1.5, 4.4);
-	 }
-	 else {
-		 drawNumber(scoreP2, -1, 4.4);
-	 }
+
+	 drawNumber(scoreP2, -1.5, 4.4);
+
+	 if (scoreP1 == 3) {
+		 std::cout << "Player 1 WINNER";
+		 difficulty = 0;
+	 }else if (scoreP2 == 3) {
+		 std::cout << "Player 2 WINNER";
+		 difficulty = 0;
+	 };
+
+
 	drawPlayer1();
 	drawPlayer2();
 	drawBall();
+
+		 //Field
+	 glPushMatrix();
+
+	 glMaterialfv(GL_FRONT, GL_EMISSION,c2 );
+	 cgvTexture text("Casillas.bmp");
+	 glBegin(GL_QUADS);
+
+		glTexCoord2f(5, 4);
+	 	glVertex3f(5, 0.0, 4);
+		glTexCoord2f(-5, 4);
+	 	glVertex3f(-5, 0.0, 4);
+		glTexCoord2f(-5,-5);
+	 	glVertex3f(-5, 0.0, -5);
+		glTexCoord2f(5, -5);
+	 	glVertex3f(5 , 0.0, -5);
+	 glEnd();
+	 glPopMatrix();
+
 
 	glPopMatrix(); // restore the modelview matrix 
 
