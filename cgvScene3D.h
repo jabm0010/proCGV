@@ -36,7 +36,7 @@ class cgvScene3D {
 		void drawRect(int x, int y, int width, int height);
 		void drawNumber(int n,double x,double z);
 
-
+		int textureChosen;
 		double difficulty;
 		// Default constructor and destructor
 		cgvScene3D();

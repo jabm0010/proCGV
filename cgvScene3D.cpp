@@ -12,6 +12,7 @@ GLfloat colour1[] = { 0,0.7,0 };
 GLfloat blue[] = { 0,0,1 };
 GLfloat red[] = { 1,0,0 };
 GLfloat white[] = { 1, 1, 1 };
+GLfloat black[] = { 0,0,0 };
 GLfloat c2[] = { 0,0.2,0.4 };
 
 cgvScene3D::cgvScene3D(){
@@ -31,6 +32,7 @@ cgvScene3D::cgvScene3D(){
 	player2 = 0;
 
 	difficulty = 0.002;
+	textureChosen = 0;
 
 	
 	// Section D: initialize the attribute/s that identifies the select object and to colour it yellow
@@ -159,22 +161,72 @@ void cgvScene3D::render(void) {
 	drawBall();
 
 		 //Field
-	 glPushMatrix();
 
-	 glMaterialfv(GL_FRONT, GL_EMISSION,c2 );
-	 cgvTexture text("Casillas.bmp");
-	 glBegin(GL_QUADS);
+	if (textureChosen == 0) {
+		glPushMatrix();
+
+		glMaterialfv(GL_FRONT, GL_EMISSION, black);
+
+		glBegin(GL_QUADS);
 
 		glTexCoord2f(5, 4);
-	 	glVertex3f(5, 0.0, 4);
+		glVertex3f(5, 0.0, 4);
 		glTexCoord2f(-5, 4);
-	 	glVertex3f(-5, 0.0, 4);
-		glTexCoord2f(-5,-5);
-	 	glVertex3f(-5, 0.0, -5);
+		glVertex3f(-5, 0.0, 4);
+		glTexCoord2f(-5, -5);
+		glVertex3f(-5, 0.0, -5);
 		glTexCoord2f(5, -5);
-	 	glVertex3f(5 , 0.0, -5);
-	 glEnd();
-	 glPopMatrix();
+		glVertex3f(5, 0.0, -5);
+		glEnd();
+		glPopMatrix();
+
+
+
+	}
+	else if (textureChosen == 1) {
+		glPushMatrix();
+
+		glMaterialfv(GL_FRONT, GL_EMISSION, black);
+
+
+		cgvTexture text("h.bmp");
+
+		
+		glBegin(GL_QUADS);
+
+		glTexCoord2f(5, 4);
+		glVertex3f(5, 0.0, 4);
+		glTexCoord2f(-5, 4);
+		glVertex3f(-5, 0.0, 4);
+		glTexCoord2f(-5, -5);
+		glVertex3f(-5, 0.0, -5);
+		glTexCoord2f(5, -5);
+		glVertex3f(5, 0.0, -5);
+		glEnd();
+		glPopMatrix();
+	}
+	else if (textureChosen == 2) {
+		glPushMatrix();
+
+		glMaterialfv(GL_FRONT, GL_EMISSION, black);
+
+	
+		cgvTexture text("s.bmp");
+		glBegin(GL_QUADS);
+
+		glTexCoord2f(5, 4);
+		glVertex3f(5, 0.0, 4);
+		glTexCoord2f(-5, 4);
+		glVertex3f(-5, 0.0, 4);
+		glTexCoord2f(-5, -5);
+		glVertex3f(-5, 0.0, -5);
+		glTexCoord2f(5, -5);
+		glVertex3f(5, 0.0, -5);
+		glEnd();
+		glPopMatrix();
+
+	}
+
 
 
 	glPopMatrix(); // restore the modelview matrix 

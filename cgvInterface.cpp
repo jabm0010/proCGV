@@ -63,6 +63,9 @@ void cgvInterface::create_menu() {
 	glutAddMenuEntry("Easy", 1);
 	glutAddMenuEntry("Medium", 2);
 	glutAddMenuEntry("Difficult", 3);
+	glutAddMenuEntry("No Texture", 4);
+	glutAddMenuEntry("Field Texture", 5);
+	glutAddMenuEntry("Sand Texture", 6);
 
 	glutAttachMenu(GLUT_RIGHT_BUTTON);
 
@@ -81,6 +84,14 @@ void cgvInterface::menuHandle(int value)
 	case 3:
 		interface.scene.difficulty = 0.006;
 		break;
+	case 4:
+		interface.scene.textureChosen = 0;
+		break;
+	case 5:
+		interface.scene.textureChosen = 1;
+		break;
+	case 6:
+		interface.scene.textureChosen = 2;
 	}
 	glutPostRedisplay(); // renew the content of the window
 }
