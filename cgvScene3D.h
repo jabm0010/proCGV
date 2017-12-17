@@ -25,11 +25,11 @@ class cgvScene3D {
 		int scoreP1;
 		int scoreP2;
 
-
+	
 		bool axes;
 
 	public:
-
+		bool end;
 		void draw_quad(float div_x, float div_z, float _size_x, float _size_z);
 		void drawBitmapText(char *string, float x, float y, float z);
 
@@ -47,8 +47,10 @@ class cgvScene3D {
 		// Methods
 		// method with the OpenGL calls to render the scene
     void render();
+	void render2();
+	void render3();
 
-
+	void draw_quad(float div_x, float div_z);
 	void drawPlayer1();
 	void drawPlayer2();
 	void drawBall();
@@ -60,6 +62,9 @@ class cgvScene3D {
 
 		bool get_axes() {return axes;};
 		void set_axes(bool _axes){axes = _axes;};
-};
+
+		int getScorep1() { return scoreP1; };
+		int getScorep2() { return scoreP2; };
+};		
 
 #endif

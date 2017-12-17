@@ -132,7 +132,20 @@ void cgvInterface::set_glutDisplayFunc() {
 	interface.camera.apply(interface.camType);
 
 	// Render the scene
-	interface.scene.render();
+	if (interface.scene.end == false) {
+		interface.scene.render();
+	}
+	if (interface.scene.end == true && interface.scene.getScorep1()==3) {
+		interface.camera= cgvCamera(cgvPoint3D(0, -100.0, 0), cgvPoint3D(5.5, 0, 5), cgvPoint3D(0, 0, 1),
+			1 * 5, 1 * 5, 0.1, 200);
+		interface.scene.render2();
+	}
+	if (interface.scene.end == true && interface.scene.getScorep2() == 3) {
+		interface.camera = cgvCamera(cgvPoint3D(0, -100.0, 0), cgvPoint3D(5.5, 0, 5), cgvPoint3D(0, 0, 1),
+			1 * 5, 1 * 5, 0.1, 200);
+		interface.scene.render3();
+	}
+
 
 	glutSwapBuffers(); // it is used instead of glFlush(), to avoid flickering	
 }
